@@ -11,14 +11,9 @@ class IngredientTest < Minitest::Test
     assert_instance_of Ingredient, @ingredient1
   end
 
+  def test_it_has_attributes
+    assert_equal "Cheese", @ingredient1.name
+    assert_equal "oz", @ingredient1.unit
+    assert_equal 50, @ingredient1.calories
+  end
 end
-# => #<Ingredient:0x007fe6041273d8...>
-
-# @ingredient1.name
-# => "Cheese"
-
-# @ingredient1.unit
-# => "oz"
-
-# @ingredient1.calories
-# => 50
