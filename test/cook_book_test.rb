@@ -69,16 +69,18 @@ class CookBookTest < Minitest::Test
   end
 
   def test_it_can_list_summary
-    skip
+    # skip
     ingredient4 = Ingredient.new({name: "Bun", unit: "g", calories: 1})
-    @recipe1.add_ingredient(@ingredient1, 2)
-    @recipe1.add_ingredient(@ingredient2, 8)
+    recipe2 = Recipe.new("Burger")
 
-    @recipe2.add_ingredient(@ingredient3, 4)
-    @recipe2.add_ingredient(ingredient4, 100)
+    @recipe1.add_ingredient(@ingredient2, 8)
+    @recipe1.add_ingredient(@ingredient1, 2)
+
+    recipe2.add_ingredient(@ingredient3, 4)
+    recipe2.add_ingredient(ingredient4, 100)
 
     @cookbook.add_recipe(@recipe1)
-    @cookbook.add_recipe(@recipe2)
+    @cookbook.add_recipe(recipe2)
 
     expected = [
       {:name=>"Mac and Cheese", :details=>{:ingredients=>[{:ingredient=>"Macaroni", :amount=>"8 oz"}, {:ingredient=>"Cheese", :amount=>"2 C"}], :total_calories=>440}},
@@ -88,30 +90,3 @@ class CookBookTest < Minitest::Test
     assert_equal expected, @cookbook.summary
   end
 end
-
-# The 'date' method should return the date the cookbook is created as "mm-dd-yyyy"
-# @cookbook.date
-# => "04-22-2020"
-
-
-
-# @recipe1.add_ingredient(ingredient1, 2)
-
-# @recipe1.add_ingredient(ingredient2, 8)
-
-
-
-
-# @recipe2 = Recipe.new("Burger")
-# => #<Recipe:0x00007faae692a110...>
-
-# @recipe2.add_ingredient(ingredient3, 4)
-
-# @recipe2.add_ingredient(ingredient4, 100)
-
-# @cookbook.add_recipe(recipe1)
-
-# @cookbook.add_recipe(recipe2)
-
-# @cookbook.summary
-# => [{:name=>"Mac and Cheese", :details=>{:ingredients=>[{:ingredient=>"Macaroni", :amount=>"8 oz"}, {:ingredient=>"Cheese", :amount=>"2 C"}], :total_calories=>440}}, {:name=>"Burger", :details=>{:ingredients=>[{:ingredient=>"Ground Beef", :amount=>"4 oz"}, {:ingredient=>"Bun", :amount=>"100 g"}], :total_calories=>500}}]

@@ -27,17 +27,16 @@ class CookBook
   end
 
   def summary
-    summary = Hash.new
-    @recipes.each do |recipe|
-      summary[:name][:details] ||= []
-      summary[:name] = recipe.name
-       summary[:details] = recipe.ingredients_required
-    # summary_hash = {:name => nil, :details => {}}
-    # @recipes.map.with_object do |recipe, hash|
-    #   require "pry"; binding.pry
-    #   summary_hash[:name] = recipe.name
-    #   summary_hash[:details] << recipe.ingredients_required
+    @recipes.map do |recipe|
+      {name: recipe.name,
+      details:
+        {ingredients: recipe.ingredients_required.map do |ingredient, amount|  
+          {ingredient: ingredient.name,
+          amount: amount.to_s + ' ' + ingredient.unit}
+        end,
+        total_calories: recipe.total_calories
+        }
+      }
     end
-    summary
   end
 end
