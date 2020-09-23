@@ -15,12 +15,11 @@ class CookBookTest < Minitest::Test
     assert_instance_of CookBook, @cookbook
   end
 
+  def test_it_can_have_recipes
+    assert_equal [], @cookbook.recipes
+
+    @cookbook.add_recipe(@recipe1)
+    @cookbook.add_recipe(@recipe2)
+    assert_equal [@recipe1, @recipe2], @cookbook.recipes
+  end
 end
-
-
-# @cookbook.add_recipe(recipe1)
-
-# @cookbook.add_recipe(recipe2)
-
-# @cookbook.recipes
-# => [#<Recipe:0x00007faae69c9698...>, #<Recipe:0x00007faae692a110...>]
