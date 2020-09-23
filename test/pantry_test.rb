@@ -14,23 +14,21 @@ class PantryTest < Minitest::Test
   def test_it_exists
     assert_instance_of Pantry, @pantry
   end
+
+  def test_it_can_stock_items
+    assert_equal ({}), @pantry.stock
+    assert_equal 0, @pantry.stock_check(@ingredient1)
+
+    @pantry.restock(@ingredient1, 5)
+    assert_equal 5, @pantry.stock_check(@ingredient1)
+
+    @pantry.restock(@ingredient1, 10)
+    assert_equal 15, @pantry.stock_check(@ingredient1)
+    assert_equal ({@ingredient1 => 15}), @pantry.stock
+  end
 end
-# => #<Pantry:0x007fd8858863b8...>
 
-# @pantry.stock
-# => {}
+# @pantry.restock(@ingredient2, 7)
 
-# @pantry.stock_check(ingredient1)
-# => 0
-
-# @pantry.restock(ingredient1, 5)
-
-# @pantry.restock(ingredient1, 10)
-
-# @pantry.stock_check(ingredient1)
-# => 15
-
-# @pantry.restock(ingredient2, 7)
-
-# @pantry.stock_check(ingredient2)
+# @pantry.stock_check(@ingredient2)
 # => 7
