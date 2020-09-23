@@ -25,10 +25,9 @@ class PantryTest < Minitest::Test
     @pantry.restock(@ingredient1, 10)
     assert_equal 15, @pantry.stock_check(@ingredient1)
     assert_equal ({@ingredient1 => 15}), @pantry.stock
+
+    @pantry.restock(@ingredient2, 7)
+    assert_equal 7, @pantry.stock_check(@ingredient2)
+    assert_equal ({@ingredient1 => 15, @ingredient2 => 7}), @pantry.stock
   end
 end
-
-# @pantry.restock(@ingredient2, 7)
-
-# @pantry.stock_check(@ingredient2)
-# => 7
