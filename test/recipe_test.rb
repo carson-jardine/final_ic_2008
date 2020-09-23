@@ -18,22 +18,20 @@ class RecipeTest < Minitest::Test
   def test_it_has_attributes
     assert_equal "Mac and Cheese", @recipe1.name
   end
+
+  def test_it_can_find_ingredients_required
+    assert_equal ({}), @recipe1.ingredients_required
+
+    @recipe1.add_ingredient(@ingredient1, 2)
+    assert_equal ({@ingredient1 => 2}), @recipe1.ingredients_required
+
+    @recipe1.add_ingredient(@ingredient1, 4)
+    @recipe1.add_ingredient(@ingredient2, 8)
+    expected = {@ingredient1 => 6, @ingredient2 => 8}
+    assert_equal expected, @recipe1.ingredients_required
+  end
 end
 
-# @recipe1.name
-# => "Mac and Cheese"
-
-# @recipe1.ingredients_required
-# => {}
-
-# @recipe1.add_ingredient(ingredient1, 2)
-
-# @recipe1.add_ingredient(ingredient1, 4)
-
-# @recipe1.add_ingredient(ingredient2, 8)
-
-# @recipe1.ingredients_required
-# => {#<Ingredient:0x00007fd7811553c8...> => 6, #<Ingredient:0x00007fd78110b0e8...> => 8}
 
 # @recipe1.ingredients
 # => [#<Ingredient:0x007fe8438c7a70...>, #<Ingredient:0x007fe843857f40...>]
