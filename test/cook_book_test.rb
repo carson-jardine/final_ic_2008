@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/recipe'
 require './lib/ingredient'
 require './lib/cook_book'
@@ -59,4 +60,58 @@ class CookBookTest < Minitest::Test
 
     assert_equal @recipe2, @cookbook.highest_calorie_meal
   end
+
+  def test_it_can_find_the_date_created
+    Date.stubs(:today).returns(Date.new(2020,4,22))
+    cookbook = CookBook.new
+
+    assert_equal "04-22-2020", cookbook.date
+  end
+
+  def test_it_can_list_summary
+    skip
+    ingredient4 = Ingredient.new({name: "Bun", unit: "g", calories: 1})
+    @recipe1.add_ingredient(@ingredient1, 2)
+    @recipe1.add_ingredient(@ingredient2, 8)
+
+    @recipe2.add_ingredient(@ingredient3, 4)
+    @recipe2.add_ingredient(ingredient4, 100)
+
+    @cookbook.add_recipe(@recipe1)
+    @cookbook.add_recipe(@recipe2)
+
+    expected = [
+      {:name=>"Mac and Cheese", :details=>{:ingredients=>[{:ingredient=>"Macaroni", :amount=>"8 oz"}, {:ingredient=>"Cheese", :amount=>"2 C"}], :total_calories=>440}},
+      {:name=>"Burger",
+        :details=>{:ingredients=>[{:ingredient=>"Ground Beef", :amount=>"4 oz"}, {:ingredient=>"Bun", :amount=>"100 g"}], :total_calories=>500}}
+      ]
+    assert_equal expected, @cookbook.summary
+  end
 end
+
+# The 'date' method should return the date the cookbook is created as "mm-dd-yyyy"
+# @cookbook.date
+# => "04-22-2020"
+
+
+
+# @recipe1.add_ingredient(ingredient1, 2)
+
+# @recipe1.add_ingredient(ingredient2, 8)
+
+
+
+
+# @recipe2 = Recipe.new("Burger")
+# => #<Recipe:0x00007faae692a110...>
+
+# @recipe2.add_ingredient(ingredient3, 4)
+
+# @recipe2.add_ingredient(ingredient4, 100)
+
+# @cookbook.add_recipe(recipe1)
+
+# @cookbook.add_recipe(recipe2)
+
+# @cookbook.summary
+# => [{:name=>"Mac and Cheese", :details=>{:ingredients=>[{:ingredient=>"Macaroni", :amount=>"8 oz"}, {:ingredient=>"Cheese", :amount=>"2 C"}], :total_calories=>440}}, {:name=>"Burger", :details=>{:ingredients=>[{:ingredient=>"Ground Beef", :amount=>"4 oz"}, {:ingredient=>"Bun", :amount=>"100 g"}], :total_calories=>500}}]
